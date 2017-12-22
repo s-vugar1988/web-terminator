@@ -5,50 +5,68 @@
     <link rel="stylesheet" href="css/normalize.css">
     <link rel="stylesheet" href="css/style.css">
 </head>
-<body onkeypress="console.log(this);" id="wt-0">
-<iframe class="wt-frame" src="chrome-extension://pnhechapfaindjhompbnflcldabbghjo/html/nassh.html"></iframe>
-<!--
-<div id="wt-1" class="split split-horizontal">
+<body onload="split_in_2_parts('')" onkeypress="console.log(this);">
+<!-- <iframe class="wt-frame" src="chrome-extension://pnhechapfaindjhompbnflcldabbghjo/html/nassh.html"></iframe> -->
+
+<div id="wt-1" class="split content">
+        <div id="wt-2" class="split content">
+            <iframe class="wt-frame" src="chrome-extension://pnhechapfaindjhompbnflcldabbghjo/html/nassh.html"></iframe>
+        </div>
+        <div id="wt-3" class="split content">
+            <iframe class="wt-frame" src="chrome-extension://pnhechapfaindjhompbnflcldabbghjo/html/nassh.html"></iframe>
+        </div>
+</div>
+    <!-- <div id="wt-2" class="split split-horizontal">
+        <div id="wt-5" class="split content">
+            <iframe class="wt-frame" src="chrome-extension://pnhechapfaindjhompbnflcldabbghjo/html/nassh.html"></iframe>
+        </div>
+        <div id="wt-6" class="split content">
+            <iframe class="wt-frame" src="chrome-extension://pnhechapfaindjhompbnflcldabbghjo/html/nassh.html"></iframe>
+        </div>
+    </div> -->
+
+
+<!-- <div id="wt-1" class="split split-horizontal">
     <div id="wt-3" class="split content">
-        <iframe src="chrome-extension://pnhechapfaindjhompbnflcldabbghjo/html/nassh.html"></iframe>
+        <iframe class="wt-frame" src="chrome-extension://pnhechapfaindjhompbnflcldabbghjo/html/nassh.html"></iframe>
     </div>
     <div id="wt-4" class="split content">
-        <iframe src="chrome-extension://pnhechapfaindjhompbnflcldabbghjo/html/nassh.html"></iframe>
+        <iframe class="wt-frame" src="chrome-extension://pnhechapfaindjhompbnflcldabbghjo/html/nassh.html"></iframe>
     </div>
 </div>
 <div id="wt-2" class="split split-horizontal">
     <div id="wt-5" class="split content">
-        <iframe src="chrome-extension://pnhechapfaindjhompbnflcldabbghjo/html/nassh.html"></iframe>
+        <iframe class="wt-frame" src="chrome-extension://pnhechapfaindjhompbnflcldabbghjo/html/nassh.html"></iframe>
     </div>
     <div id="wt-6" class="split content">
-        <iframe src="chrome-extension://pnhechapfaindjhompbnflcldabbghjo/html/nassh.html"></iframe>
+        <iframe class="wt-frame" src="chrome-extension://pnhechapfaindjhompbnflcldabbghjo/html/nassh.html"></iframe>
     </div>
-</div>
--->
+</div> -->
+
 
 </body>
 <script src="js/split.js"></script>
 <script>
     function split_in_2_parts(id) {
         var x = parseInt(id.substr(id.indexOf('wt-') + 3));
-        Split(['#wt-1', '#wt-2'], {
+        /* Split(['#wt-1', '#wt-2'], {
             gutterSize: 8,
             cursor: 'col-resize'
+        }); */
+
+        Split(['#wt-2', '#wt-3'], {
+            direction: 'vertical',
+            sizes: [50, 50],
+            gutterSize: 2,
+            cursor: 'row-resize'
         });
 
-        Split(['#wt-3', '#wt-4'], {
+        /* Split(['#wt-5', '#wt-6'], {
             direction: 'vertical',
             sizes: [25, 75],
             gutterSize: 8,
             cursor: 'row-resize'
-        });
-
-        Split(['#wt-5', '#wt-6'], {
-            direction: 'vertical',
-            sizes: [25, 75],
-            gutterSize: 8,
-            cursor: 'row-resize'
-        });
+        }); */
     }
 </script>
 </html>
