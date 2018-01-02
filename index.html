@@ -1,72 +1,58 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <title>Split.js</title>
-    <link rel="stylesheet" href="css/normalize.css">
-    <link rel="stylesheet" href="css/style.css">
+    <meta charset="utf-8"/>
+    <title>Web Terminator</title>
+    <meta name="Description" content="jQuery Splitter Demo"/>
+    <link rel="shortcut icon" href=""/>
+
+    <script src="js/jquery-2.1.1.min.js"></script>
+    <script src="js/jquery.enhsplitter.js"></script>
+    <script src="js/jquery-resizeEnd.min.js"></script>
+    <script src="js/index.js"></script>
+
+    <link href="css/jquery.enhsplitter.css" rel="stylesheet"/>
+    <link href="css/style.css" rel="stylesheet"/>
 </head>
-<body onload="split_in_2_parts('')" onkeypress="console.log(this);">
-<!-- <iframe class="wt-frame" src="chrome-extension://pnhechapfaindjhompbnflcldabbghjo/html/nassh.html"></iframe> -->
+<body>
 
-<div id="wt-1" class="split content">
-        <div id="wt-2" class="split content">
-            <iframe class="wt-frame" src="chrome-extension://pnhechapfaindjhompbnflcldabbghjo/html/nassh.html"></iframe>
-        </div>
-        <div id="wt-3" class="split content">
-            <iframe class="wt-frame" src="chrome-extension://pnhechapfaindjhompbnflcldabbghjo/html/nassh.html"></iframe>
-        </div>
+<div class="content" id="wt-1">
+
 </div>
-    <!-- <div id="wt-2" class="split split-horizontal">
-        <div id="wt-5" class="split content">
-            <iframe class="wt-frame" src="chrome-extension://pnhechapfaindjhompbnflcldabbghjo/html/nassh.html"></iframe>
-        </div>
-        <div id="wt-6" class="split content">
-            <iframe class="wt-frame" src="chrome-extension://pnhechapfaindjhompbnflcldabbghjo/html/nassh.html"></iframe>
-        </div>
-    </div> -->
 
-
-<!-- <div id="wt-1" class="split split-horizontal">
-    <div id="wt-3" class="split content">
-        <iframe class="wt-frame" src="chrome-extension://pnhechapfaindjhompbnflcldabbghjo/html/nassh.html"></iframe>
-    </div>
-    <div id="wt-4" class="split content">
-        <iframe class="wt-frame" src="chrome-extension://pnhechapfaindjhompbnflcldabbghjo/html/nassh.html"></iframe>
-    </div>
+<div wt-frame-wrapper wt-container="#wt-1" class="wt-frame-wrapper">
+    <i split="hozizontal" class="split material-icons">more_horiz</i>
+    <i split="vertical" class="split material-icons">more_vert</i>
+    <iframe class="wt-frame" src="chrome-extension://pnhechapfaindjhompbnflcldabbghjo/html/nassh.html"></iframe>
 </div>
-<div id="wt-2" class="split split-horizontal">
-    <div id="wt-5" class="split content">
-        <iframe class="wt-frame" src="chrome-extension://pnhechapfaindjhompbnflcldabbghjo/html/nassh.html"></iframe>
-    </div>
-    <div id="wt-6" class="split content">
-        <iframe class="wt-frame" src="chrome-extension://pnhechapfaindjhompbnflcldabbghjo/html/nassh.html"></iframe>
-    </div>
-</div> -->
-
 
 </body>
-<script src="js/split.js"></script>
 <script>
-    function split_in_2_parts(id) {
-        var x = parseInt(id.substr(id.indexOf('wt-') + 3));
-        /* Split(['#wt-1', '#wt-2'], {
-            gutterSize: 8,
-            cursor: 'col-resize'
-        }); */
 
-        Split(['#wt-2', '#wt-3'], {
-            direction: 'vertical',
-            sizes: [50, 50],
-            gutterSize: 2,
-            cursor: 'row-resize'
+    $(function () {
+        $(document).on("click", "["+ CONSTANTS.ATTR_SPLIT +"]", function () {
+            var body = $('body');
+            var element = $(this);
+            var wrapper = element.parents('['+ CONSTANTS.ATTR_WT_FRAME_WRAPPER +']');
+            var container = $(wrapper.attr(CONSTANTS.ATTR_WT_CONTAINER));
+            var id = container.attr('id');
+            var counter = body.find('['+ CONSTANTS.ATTR_WT_FRAME_WRAPPER +']').length;
+            var id1 = CONSTANTS.UTIL_WT_PREFIX + ++counter;
+            container.removeAttr('id');
+            container.append('<div id="'+ id + '"></div>');
+            container.append('<div id="'+ id1+ '"></div>');
+            body.append(CONSTANTS.UTIL_FRAME_WRAPPER_HTML.replace(CONSTANTS.UTIL_FRAME_WRAPPER_REPLACE, id1));
+            split_in_2_part(container, element.attr(CONSTANTS.ATTR_SPLIT));
+            normalizeFramePositions();
         });
 
-        /* Split(['#wt-5', '#wt-6'], {
-            direction: 'vertical',
-            sizes: [25, 75],
-            gutterSize: 8,
-            cursor: 'row-resize'
-        }); */
-    }
+        $(window).on("resizeEnd", function (event) {
+            normalizeFramePositions();
+        });
+
+        /*split_in_2_part($("#wt-0"), CONSTANTS.ATTR_SPLIT_VALUE_VERTICAL);*/
+        normalizeFramePositions();
+
+    });
 </script>
 </html>
